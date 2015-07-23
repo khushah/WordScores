@@ -8,7 +8,6 @@ import java.util.*;
 
 public class WordScore {
 
-    private String[] wordList;
     private Map<Integer, ArrayList> map = new TreeMap(Collections.reverseOrder());
 
     public WordScore(String path){
@@ -54,40 +53,32 @@ public class WordScore {
 
     public String printList() {
         String outputString = "";
-        Set set2 = map.entrySet();
-        Iterator iterator2 = set2.iterator();
+        Set setOfScores = map.entrySet();
+        Iterator iterator2 = setOfScores.iterator();
         while(iterator2.hasNext()) {
-            Map.Entry me2 = (Map.Entry) iterator2.next();
-            outputString += (me2.getKey() + ": ");
-            outputString += (me2.getValue() + "\n");
+            Map.Entry wordScorePair = (Map.Entry) iterator2.next();
+            outputString += (wordScorePair.getKey() + ": ");
+            outputString += (wordScorePair.getValue() + "\n");
         }
         return outputString;
     }
 
     public void writeToFile(String path) {
         try {
-
             String content = printList();
-
             File file = new File(path);
-
-            // if file doesnt exists, then create it
             if (!file.exists()) {
                 file.createNewFile();
             }
-
             FileWriter fw = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fw);
             bw.write(content);
             bw.close();
-
             System.out.println("Write complete!");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 
     public static void main(String[] args) {
         WordScore wordscores = new WordScore(args[0]);
