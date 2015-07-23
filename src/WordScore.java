@@ -30,11 +30,15 @@ public class WordScore {
         }
     }
 
+    public int getLetterScore(char letter) {
+        return letter + 'a' - 1;
+    }
+
     public int computeWordScore(String word){
         int score = 0;
         char[] wordChars = word.toCharArray();
         for (int pos = 0; pos < wordChars.length; pos++) {
-            score += wordChars[pos] - 'a' + 1;
+            score += getLetterScore(wordChars[pos]);
         }
         return score;
     }
